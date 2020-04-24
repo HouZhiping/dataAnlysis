@@ -2,6 +2,9 @@ package com.village.dataAnlysis.shiro;
 
 import org.apache.shiro.authc.AuthenticationToken;
 
+/**
+ * 自定义一个对象用来封装token
+ */
 public class JWTToken implements AuthenticationToken {
 
     // 密钥

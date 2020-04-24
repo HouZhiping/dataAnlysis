@@ -1,5 +1,6 @@
 package com.village.dataAnlysis.shiro;
 
+import com.github.pagehelper.util.StringUtil;
 import com.village.dataAnlysis.domain.entity.Permission;
 import com.village.dataAnlysis.domain.entity.RoleEntity;
 import com.village.dataAnlysis.domain.entity.UserEntity;
@@ -56,8 +57,8 @@ public class MyShiroRealm  extends AuthorizingRealm {
         String token = (String) auth.getCredentials();
         // 解密获得username，用于和数据库进行对比
         String username = JWTUtil.getUsername(token);
-        if (username == null) {
-            throw new AuthenticationException("token invalid");
+        if (StringUtil.isEmpty(username)) {
+            throw new AuthenticationException("用户名无效");
         }
 
         //通过username从数据库中查找 ManagerInfo对象
@@ -65,7 +66,7 @@ public class MyShiroRealm  extends AuthorizingRealm {
         UserEntity userEntity = userService.findByUsername(username);
 
         if (userEntity == null) {
-            throw new AuthenticationException("User didn't existed!");
+            throw new AuthenticationException("用户不存在!");
         }
 
         //随机数盐
@@ -83,10 +84,11 @@ public class MyShiroRealm  extends AuthorizingRealm {
         }
 
         if (!JWTUtil.verify(token, username, encodedPassword)) {
-            throw new AuthenticationException("Username or password error");
+            throw new AuthenticationException("密码错误");
         }
 
-        return new SimpleAuthenticationInfo(token, token, "my_realm");
+        return new SimpleAuthenticationInfo(token, token, getName());
+//        return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 
     /**

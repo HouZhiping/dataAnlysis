@@ -1,9 +1,7 @@
 package com.village.dataAnlysis;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.github.pagehelper.PageHelper;
-import org.aopalliance.intercept.Interceptor;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +14,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 @SpringBootApplication
 @MapperScan("com.village.dataAnlysis.domain.mapper")//com.village.dataAnlysis.domain.mapper
@@ -64,6 +61,16 @@ public class DataAnlysisApplication {
 		bean.setOrder(0);
 		return bean;
 	}
+
+	/**
+	 * mybatis-plus分页需要使用该插件
+	 * @return
+	 */
+	@Bean
+	public PaginationInterceptor paginationInterceptor() {
+		return new PaginationInterceptor();
+	}
+
 
 	/*@Bean
 	PageHelper pageHelper(){

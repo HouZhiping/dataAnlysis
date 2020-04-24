@@ -4,19 +4,24 @@ package com.village.dataAnlysis.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
+/**
+ * 用来进行签名和效验Token
+ */
 public class JWTUtil {
 
 
     private static final Logger log = LoggerFactory.getLogger(JWTUtil.class);
 
     // 过期时间5分钟
-    private static final long EXPIRE_TIME = 5 * 60 * 1000;
+    private static final long EXPIRE_TIME = 30 * 60 * 1000;
 
     /**
      * 生成签名,5min后过期
@@ -43,12 +48,31 @@ public class JWTUtil {
      * @return 是否正确
      */
     public static boolean verify(String token, String username, String secret) {
-        Algorithm algorithm = Algorithm.HMAC256(secret);
+
+
+        // 根据密码生成JWT校验器
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withClaim("username", username)
+                    .build();
+            // 校验TOKEN
+            DecodedJWT jwt = verifier.verify(token);
+            return true;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
+        } catch (JWTVerificationException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        /*Algorithm algorithm = Algorithm.HMAC256(secret);
         JWTVerifier verifier = JWT.require(algorithm)
                 .withClaim("username", username)
                 .build();
         DecodedJWT jwt = verifier.verify(token);
-        return true;
+        return true;*/
     }
 
     /**
@@ -57,8 +81,17 @@ public class JWTUtil {
      * @return token中包含的用户名
      */
     public static String getUsername(String token) {
-        DecodedJWT jwt = JWT.decode(token);
-        return jwt.getClaim("username").asString();
+
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("username").asString();
+        } catch (JWTDecodeException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        /*DecodedJWT jwt = JWT.decode(token);
+        return jwt.getClaim("username").asString();*/
     }
 
 

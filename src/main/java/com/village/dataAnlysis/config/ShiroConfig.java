@@ -34,6 +34,8 @@ public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 
+        System.out.println("########################配置shiro");
+
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -45,12 +47,19 @@ public class ShiroConfig {
         // 拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
-        // 其他的
-        filterChainDefinitionMap.put("/**", "jwt");
 
+        filterChainDefinitionMap.put("/population/**", "anon");
         // 访问401和404页面不通过我们的Filter
         filterChainDefinitionMap.put("/401", "anon");
         filterChainDefinitionMap.put("/404", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
+
+        // 其他的
+        filterChainDefinitionMap.put("/**", "jwt");
+        filterChainDefinitionMap.put("/**", "anon");//越在后面越生效
+
+        //未授权界面;
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

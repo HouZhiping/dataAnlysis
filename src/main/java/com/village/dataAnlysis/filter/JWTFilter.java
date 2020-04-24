@@ -54,7 +54,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
      * 如果有些资源只有登入用户才能访问，我们只需要在方法上面加上 @RequiresAuthentication 注解即可
      * 但是这样做有一个缺点，就是不能够对GET,POST等请求进行分别过滤鉴权(因为我们重写了官方的方法)，但实际上对应用影响不大
      */
-    @Override
+   /* @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         if (isLoginAttempt(request, response)) {
             try {
@@ -64,6 +64,24 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             }
         }
         return true;
+    }*/
+
+    /**
+     * 执行登陆认证
+     * @param request
+     * @param response
+     * @param mappedValue
+     * @return
+     */
+    @Override
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+        try {
+            executeLogin(request, response);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**

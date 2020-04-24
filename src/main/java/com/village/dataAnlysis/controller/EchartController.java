@@ -30,6 +30,17 @@ public class EchartController {
     public List<Map<String,Object>> getXingbeiInfo() {
         List<Map<String,Object>> list = jdbcTemplate.queryForList(
                 "SELECT count(*) AS `sum`,xing_bei FROM population_info GROUP BY xing_bei");
+        System.out.println(6);
+        return list;
+    }
+
+    @RequestMapping("/get_xingbei_info1")
+    public List<Map<String,Object>> getXingbeiInfo1() {
+        List<Map<String,Object>> list = jdbcTemplate.queryForList(
+                "SELECT count(*) AS `sum`,xing_bei FROM population_info GROUP BY xing_bei");
+        System.out.println(888);
+
+
         return list;
     }
 
