@@ -1,17 +1,16 @@
 package com.village.dataAnlysis.CodeGenerator;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class CodeGenerator {
@@ -44,15 +43,21 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.village.dataAnlysis");
+        pc.setEntity("po");
+        pc.setParent("com.zhongli.devplatform");//devplatform
         mpg.setPackageInfo(pc);
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
 //        String projectPath = System.getProperty("user.dir");
-        String projectPath = "D:/test";
-        gc.setOutputDir(projectPath + "/src");
-        gc.setAuthor("houzhiping");
+        String projectPath = "D:/test";//C:\java\idea_workplace\shuxue\src
+
+//        gc.setOutputDir(projectPath + "/src");
+        gc.setOutputDir("C:/java/idea_workplace/shuxue/src/main/java");
+
+
+
+        gc.setAuthor("h");
         gc.setOpen(false);
         /* 自定义文件命名，注意 %s 会自动填充表实体属性！ */
         /*gc.setControllerName(pc.getModuleName() + "Controller");//
@@ -61,20 +66,29 @@ public class CodeGenerator {
         gc.setEntityName(pc.getModuleName());
         gc.setMapperName(pc.getModuleName() + "Mapper");*/
         gc.setControllerName(modleName + "Controller");//
-        gc.setServiceName(modleName + "Service");
+        gc.setServiceName("I" + modleName + "Service");
         gc.setServiceImplName(modleName + "ServiceImpl");
-        gc.setEntityName(modleName+"Entity");
+        gc.setEntityName(modleName+"PO");
         gc.setMapperName(modleName + "Mapper");
+
+        gc.setIdType(IdType.AUTO);
+
 //         gc.setXmlName("%sDao");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/longqiao_info?serverTimezone=GMT%2B8");
-        dsc.setSchemaName("longqiao_info");
+//        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/longqiao_info?serverTimezone=GMT%2B8");
+//        dsc.setSchemaName("longqiao_info");
+//        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+//        dsc.setUsername("root");
+//        dsc.setPassword("12345678");
+
+        dsc.setUrl("jdbc:mysql://139.9.148.236:3306/shuxue?serverTimezone=GMT%2B8");
+        dsc.setSchemaName("shuxue");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("12345678");
+        dsc.setPassword("zhongli#123");
         mpg.setDataSource(dsc);
 
         // 自定义配置
@@ -120,15 +134,18 @@ public class CodeGenerator {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
 //        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setNaming(NamingStrategy.no_change);
-        strategy.setColumnNaming(NamingStrategy.no_change);
-        strategy.setSuperEntityClass("com.baomidou.mybatisplus.core.mapper");
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+//        strategy.setSuperEntityClass("com.baomidou.mybatisplus.core.mapper");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         strategy.setInclude(scanner("表名"));
         strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
+
+
+
 //        strategy.setTablePrefix(pc.getModuleName() + "_ppp");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
