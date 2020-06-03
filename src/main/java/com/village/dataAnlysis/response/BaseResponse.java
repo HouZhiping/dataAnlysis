@@ -8,12 +8,14 @@ public class BaseResponse<T> {
     /**
      * 是否成功
      */
-    private boolean success;
+    private boolean success =true;
 
     /**
      * 说明
      */
-    private String msg;
+    private String msg = "请求成功";
+
+    private Integer code = 200;
 
     /**
      * 返回数据
