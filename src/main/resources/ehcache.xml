@@ -25,14 +25,14 @@
            statistics="true">
     </cache>
 
-    <cache name="authenticationCache"
+   <!-- <cache name="authenticationCache"
            maxEntriesLocalHeap="2000"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="3600"
            overflowToDisk="false"
            statistics="true">
-    </cache>
+    </cache>-->
 
     <cache name="org.apache.shiro.realm.text.PropertiesRealm-0-accounts"
            maxElementsInMemory="1000"

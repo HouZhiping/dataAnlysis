@@ -20,7 +20,7 @@ import java.util.Map;
 //@CrossOrigin(origins = "http://127.0.0.1:8088", maxAge = 3600)
 @RestController
 @RequestMapping("/population")
-@RequiresAuthentication
+//@RequiresAuthentication
 public class PopulationController {
 
 //    @Autowired

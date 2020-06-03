@@ -35,7 +35,7 @@ public class FamilyController{
      * @return
      */
     @RequestMapping("listUnderPage")
-    @RequiresAuthentication
+//    @RequiresAuthentication
     public PageInfo<FamilyEntity> findFamilyUnderPage(@RequestParam(defaultValue = "1") int pageNo,
                                                       @RequestParam(defaultValue = "10") int pageSize, FamilyEntity familyEntity){
         /*if (!SecurityUtils.getSubject().isAuthenticated()) {

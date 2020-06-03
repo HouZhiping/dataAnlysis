@@ -11,6 +11,7 @@
 	<groupId>com.village</groupId>
 	<artifactId>dataAnlysis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>dataAnlysis</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -225,13 +226,25 @@
 			<version>2.1.4.RELEASE</version>
 		</dependency>-->
 
-		<!--服务器硬件监控-->
 		<!-- https://mvnrepository.com/artifact/org.hyperic/sigar -->
 		<dependency>
 			<groupId>org.hyperic</groupId>
 			<artifactId>sigar</artifactId>
 			<version>1.6.4</version>
 		</dependency>
+
+
+
+
+		<!--服务器硬件监控-->
+		<!-- 从本地maven仓库获取的 -->
+		<!--<dependency>
+			<groupId>org.hyperic</groupId>
+			<artifactId>sigar</artifactId>
+			<version>4.2.0</version>
+		</dependency>-->
+
+
 
 		<!--如果是 Spring Boot 项目直接添加 spring-boot-starter-data-redis 即可。-->
 		<dependency>

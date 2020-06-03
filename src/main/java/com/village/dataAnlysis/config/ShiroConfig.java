@@ -48,7 +48,6 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
 
-        filterChainDefinitionMap.put("/population/**", "anon");
         // 访问401和404页面不通过我们的Filter
         filterChainDefinitionMap.put("/401", "anon");
         filterChainDefinitionMap.put("/404", "anon");
