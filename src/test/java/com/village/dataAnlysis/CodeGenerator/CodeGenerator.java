@@ -69,7 +69,7 @@ public class CodeGenerator {
         gc.setAuthor("h");
         gc.setOpen(false);
         gc.setIdType(IdType.NONE);
-        gc.setFileOverride(true);//会覆盖原来的文件
+//        gc.setFileOverride(true);//会覆盖原来的文件
         /* 自定义文件命名，注意 %s 会自动填充表实体属性！ */
         /*gc.setControllerName(pc.getModuleName() + "Controller");//
         gc.setServiceName(pc.getModuleName() + "Service");

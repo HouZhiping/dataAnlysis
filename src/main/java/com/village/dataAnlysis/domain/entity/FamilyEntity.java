@@ -1,9 +1,11 @@
 package com.village.dataAnlysis.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 @TableName("family_info")
 public class FamilyEntity {
 
