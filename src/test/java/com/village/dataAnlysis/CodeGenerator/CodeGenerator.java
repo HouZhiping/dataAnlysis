@@ -36,6 +36,82 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 
+        makeCode();
+        //shuxue inter
+//        makeShuxue();
+    }
+
+    public static void makeCode(){
+
+//        String modleName = scanner("模块名");
+        final String modleName = "PictureType";
+        final String tableName = "pm_type_info";
+        // 代码生成器
+        AutoGenerator mpg = new AutoGenerator();
+
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        //默认也可以不设置
+        pc.setEntity("domain.entity");
+        pc.setMapper("domain.mapper");
+        pc.setXml(null);
+
+        //父包名
+        pc.setParent("com.village.dataAnlysis");
+//        pc.setModuleName("domian");
+        mpg.setPackageInfo(pc);
+
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        String outputDir = "C:/idea_code/dataAnlysis/src/main/java";
+        gc.setOutputDir(outputDir);
+
+        gc.setAuthor("h");
+        gc.setOpen(false);
+        gc.setIdType(IdType.NONE);
+        gc.setFileOverride(true);//会覆盖原来的文件
+        /* 自定义文件命名，注意 %s 会自动填充表实体属性！ */
+        /*gc.setControllerName(pc.getModuleName() + "Controller");//
+        gc.setServiceName(pc.getModuleName() + "Service");
+        gc.setServiceImplName(pc.getModuleName() + "ServiceImpl");
+        gc.setEntityName(pc.getModuleName());
+        gc.setMapperName(pc.getModuleName() + "Mapper");*/
+        gc.setEntityName(pc.getModuleName());
+        gc.setControllerName(modleName + "Controller");//
+        gc.setServiceName("I" + modleName + "Service");
+        gc.setServiceImplName(modleName + "ServiceImpl");
+        gc.setEntityName(modleName+"Entity");
+        gc.setMapperName(modleName + "Mapper");
+
+        gc.setIdType(IdType.AUTO);
+        mpg.setGlobalConfig(gc);
+
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl("jdbc:mysql://122.51.4.234:3306/longqiao_info?serverTimezone=GMT%2B8");
+        dsc.setSchemaName("longqiao_info");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("hzp123456");
+        mpg.setDataSource(dsc);
+
+
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true);
+//        strategy.setInclude(scanner("表名"));
+        strategy.setInclude(tableName);
+//        strategy.setSuperEntityColumns("id");
+        strategy.setControllerMappingHyphenStyle(true);
+
+        mpg.setStrategy(strategy);
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        mpg.execute();
+    }
+
+
+    public static void makeShuxue(){
         String modleName = scanner("模块名");
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
@@ -141,7 +217,7 @@ public class CodeGenerator {
         strategy.setRestControllerStyle(true);
         strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         strategy.setInclude(scanner("表名"));
-        strategy.setSuperEntityColumns("id");
+//        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
 
 
