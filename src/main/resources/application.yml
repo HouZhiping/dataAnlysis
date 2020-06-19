@@ -5,7 +5,8 @@ server:
 spring:
   ##数据库配置
   datasource:
-    url: jdbc:mysql://122.51.4.234:3306/longqiao_info?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+#    url: jdbc:mysql://122.51.4.234:3306/longqiao_info?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+    url: jdbc:p6spy:mysql://122.51.4.234:3306/longqiao_info?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
     username: root
     password: hzp123456
     #driver-class-name: com.mysql.cj.jdbc.Driver

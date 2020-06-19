@@ -8,11 +8,11 @@ import com.village.dataAnlysis.response.BaseResponse;
 import com.village.dataAnlysis.service.IPictureTypeService;
 import com.village.dataAnlysis.service.impl.PictureTypeServiceImpl;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,11 +37,26 @@ public class PictureTypeController {
      * @param pictureTypeQuery
      * @return
      */
-    @RequestMapping("/listPictureTypes")
+    @GetMapping("/listPictureTypes")
+    @ResponseBody
     @ApiOperation("图片分类全列表")
     public BaseResponse<List<PictureTypeEntity>> listPictureTypes(PictureTypeQuery pictureTypeQuery){
         return new BaseResponse<>(pictureTypeService.listPictureTypes(pictureTypeQuery));
     }
+
+
+    @GetMapping("/testApiImplicitParam")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "num", value = "测试数值"),
+            @ApiImplicitParam(name = "str", value = "测试字符串", dataType = "string", paramType = "query")
+    })
+    @ApiOperation(value="swagger测试")
+    public BaseResponse<String> testApiImplicitParam(String str,Integer num){
+        return new BaseResponse<>(str+ " %%%%%% " + num);
+    }
+
+
+
 
 
 
