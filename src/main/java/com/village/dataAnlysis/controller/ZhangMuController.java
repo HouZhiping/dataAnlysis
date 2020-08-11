@@ -31,13 +31,7 @@ public class ZhangMuController {
     @RequestMapping("/pageList")
     public BaseResponse pageList(ZhangMuQuery zhangMuQuery){
 
-        BaseResponse response = new BaseResponse();
-
-        IPage page = zhangMuService.page(zhangMuQuery, new QueryWrapper<ZhangMuEntity>());
-
-        response.setData(page);
-
-        return response;
+        return new BaseResponse(zhangMuService.page(zhangMuQuery, new QueryWrapper<>()));
 
     }
 
